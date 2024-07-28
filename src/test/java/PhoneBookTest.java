@@ -3,12 +3,15 @@ import org.junit.jupiter.api.Test;
 
 public class PhoneBookTest {
 
+    private final String NAME = "Ivan Popov";
+    private final String NUMBER = "9111111111";
+
     @Test
     public void test_addContact() {
         PhoneBook phoneBook = new PhoneBook();
         int expectedContactAmount = 1;
 
-        int actualContactAmount = phoneBook.add("Ivan Popov", "9056708754");
+        int actualContactAmount = phoneBook.add(NAME, NUMBER);
 
         Assertions.assertEquals(expectedContactAmount, actualContactAmount);
     }
@@ -17,9 +20,9 @@ public class PhoneBookTest {
     public void test_addSameContact() {
         PhoneBook phoneBook = new PhoneBook();
         int expectedContactAmount = 1;
-        phoneBook.add("Natalia Ivanova", "9056708754");
+        phoneBook.add(NAME, NUMBER);
 
-        int actualContactAmount = phoneBook.add("Natalia Ivanova", "9056708754");
+        int actualContactAmount = phoneBook.add(NAME, NUMBER);
 
         Assertions.assertEquals(expectedContactAmount, actualContactAmount);
     }
@@ -27,10 +30,10 @@ public class PhoneBookTest {
     @Test
     public void test_positive_findByNumber() {
         PhoneBook phoneBook = new PhoneBook();
-        String expectedName = "Elena Petrova";
-        phoneBook.add("Elena Petrova", "9112345678");
+        String expectedName = NAME;
+        phoneBook.add(NAME, NUMBER);
 
-        String actualName = phoneBook.findByNumber("9112345678");
+        String actualName = phoneBook.findByNumber(NUMBER);
 
         Assertions.assertEquals(expectedName, actualName);
     }
@@ -39,8 +42,28 @@ public class PhoneBookTest {
     public void test_negative_findByNumber() {
         PhoneBook phoneBook = new PhoneBook();
 
-        String actualName = phoneBook.findByNumber("9111111111");
+        String actualName = phoneBook.findByNumber(NUMBER);
 
         Assertions.assertNull(actualName);
+    }
+
+    @Test
+    public void test_positive_findByName() {
+        PhoneBook phoneBook = new PhoneBook();
+        String expectedNumber = NUMBER;
+        phoneBook.add(NAME, NUMBER);
+
+        String actualNumber = phoneBook.findByName(NAME);
+
+        Assertions.assertEquals(expectedNumber, actualNumber);
+    }
+
+    @Test
+    public void test_negative_findByName() {
+        PhoneBook phoneBook = new PhoneBook();
+
+        String actualNumber = phoneBook.findByName(NAME);
+
+        Assertions.assertNull(actualNumber);
     }
 }
